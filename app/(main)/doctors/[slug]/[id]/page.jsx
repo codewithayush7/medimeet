@@ -13,9 +13,9 @@ async function DoctorProfilePage({ params }) {
         ])
 
         return (
-            <DoctorProfile 
+            <DoctorProfile
                 doctor={doctorData.doctor}
-                availableDays={slotsData.days || []}/>
+                availableDays={slotsData.days || []} />
         )
     } catch (error) {
         console.error("Error loading doctor profile: ", error.message);

@@ -256,7 +256,8 @@ export async function bookAppointment(formData) {
     revalidatePath("/appointments");
     return { success: true, appointment: appointment };
   } catch (error) {
-    throw new Error("Failed to book appointment: ", error.message);
+      console.error("BOOK APPOINTMENT ERROR:", error);
+      throw error;
   }
 }
 

@@ -9,19 +9,23 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { checkUser } from "@/lib/checkUser";
 import { Badge } from "./ui/badge";
 import Image from "next/image";
+import { currentUser } from "@clerk/nextjs/server";
+import { db } from "@/lib/prisma";
+
 
 export default async function Header() {
+  const clerkUser = await currentUser();
+
   let user = null;
 
-  try {
-    user = await checkUser();
-  } catch (error) {
-    console.error("Error checking user:", error);
-  }
+  if (clerkUser) {
+    user = await db.user.findUnique({
+      where: { clerkUserId: clerkUser.id },
+    });
 
+  }
   return (
     <header
       className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-10 supports-[backdrop-filter]:bg-background/60"
