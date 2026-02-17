@@ -44,7 +44,7 @@ const imageUrl = clerkUser?.imageUrl;
     name: fullName,
     imageUrl,
     role: "PATIENT",
-    credits: 2, 
+    credits: 10, // Default credits for new users
     },
   });
 
