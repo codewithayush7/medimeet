@@ -21,6 +21,8 @@ export async function setUserRole(formData) {
 
 const fullName = `${clerkUser?.firstName || ""} ${clerkUser?.lastName || ""}`.trim();
 
+const imageUrl = clerkUser?.imageUrl;
+
   const email = clerkUser.emailAddresses?.[0]?.emailAddress;
 
   if (!email) {
@@ -30,16 +32,18 @@ const fullName = `${clerkUser?.firstName || ""} ${clerkUser?.lastName || ""}`.tr
   //If user exists → fine ; If user doesn't exist → create automatically
   // Safe upsert
   const user = await db.user.upsert({
-    where: { clerkUserId: userId },
-    update: {
-      email,
-      name: fullName,
-    },
-    create: {
-      clerkUserId: userId,
-      email: email,
-      name: fullName,
-      role: "PATIENT",
+   where: { clerkUserId: userId },
+  update: {
+    email,
+    name: fullName,
+    imageUrl,
+  },
+  create: {
+    clerkUserId: userId,
+    email,
+    name: fullName,
+    imageUrl,
+    role: "PATIENT",
     },
   });
 
