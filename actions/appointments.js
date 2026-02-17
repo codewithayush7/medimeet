@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Auth } from "@vonage/auth";
 import { Vonage } from "@vonage/server-sdk";
+import { redirect } from "next/navigation";
 
 import { deductCreditsForAppointment } from "./credits";
 
