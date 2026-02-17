@@ -16,8 +16,9 @@ export async function setUserRole(formData) {
     where: { clerkUserId: userId },
   });
 
-  if (!user) throw new Error("User not found in database");
-
+  if (!user){
+    redirect("/onboarding");
+  }
   const role = formData.get("role");
 
   if (!role || !["PATIENT", "DOCTOR"].includes(role)) {

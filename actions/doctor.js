@@ -160,7 +160,7 @@ export async function cancelAppointment(formData) {
         });
 
         if (!user) {
-            throw new Error("User not found");
+            return <EmptyState />;
         }
 
         const appointmentId = formData.get("appointmentId");

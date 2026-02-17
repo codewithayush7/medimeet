@@ -285,7 +285,7 @@ export async function generateVideoToken(formData) {
     });
 
     if (!user) {
-      throw new Error("User not found");
+      redirect("/onboarding");
     }
 
     const appointmentId = formData.get("appointmentId");
