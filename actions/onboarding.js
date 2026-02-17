@@ -14,13 +14,15 @@ export async function setUserRole(formData) {
   }
 
   // Find user in our database
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-  });
+ const user = await db.user.upsert({
+  where: { clerkUserId: userId },
+  update: {}, // nothing to update yet
+  create: {
+    clerkUserId: userId,
+    role: "PATIENT", // temporary default
+  },
+});
 
-  if (!user){
-    redirect("/onboarding");
-  }
   const role = formData.get("role");
 
   if (!role || !["PATIENT", "DOCTOR"].includes(role)) {
