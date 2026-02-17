@@ -1,9 +1,9 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/prisma";
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"; 
 
 
 export async function setUserRole(formData) {
@@ -13,15 +13,29 @@ export async function setUserRole(formData) {
     throw new Error("Unauthorized");
   }
 
-  // Find user in our database
- const user = await db.user.upsert({
-  where: { clerkUserId: userId },
-  update: {}, // nothing to update yet
-  create: {
-    clerkUserId: userId,
-    role: "PATIENT", // temporary default
-  },
-});
+  const clerkUser = await currentUser();
+
+  if (!clerkUser) {
+    throw new Error("Clerk user not found");
+  }
+
+  const email = clerkUser.emailAddresses?.[0]?.emailAddress;
+
+  if (!email) {
+    throw new Error("User email not found");
+  }
+
+  //If user exists → fine ; If user doesn't exist → create automatically
+  // Safe upsert
+  const user = await db.user.upsert({
+    where: { clerkUserId: userId },
+    update: {},
+    create: {
+      clerkUserId: userId,
+      email: email,
+      role: "PATIENT",
+    },
+  });
 
   const role = formData.get("role");
 
@@ -64,8 +78,7 @@ export async function setUserRole(formData) {
         },
       });
 
-      revalidatePath("/");
-      return { success: true, redirect: "/doctor/verification" };
+      redirect("/doctor/verification");
     }
   } catch (error) {
     console.error("Failed to set user role:", error);
