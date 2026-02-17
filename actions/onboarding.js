@@ -19,6 +19,8 @@ export async function setUserRole(formData) {
     throw new Error("Clerk user not found");
   }
 
+const fullName = `${clerkUser?.firstName || ""} ${clerkUser?.lastName || ""}`.trim();
+
   const email = clerkUser.emailAddresses?.[0]?.emailAddress;
 
   if (!email) {
@@ -29,10 +31,14 @@ export async function setUserRole(formData) {
   // Safe upsert
   const user = await db.user.upsert({
     where: { clerkUserId: userId },
-    update: {},
+    update: {
+      email,
+      name: fullName,
+    },
     create: {
       clerkUserId: userId,
       email: email,
+      name: fullName,
       role: "PATIENT",
     },
   });
