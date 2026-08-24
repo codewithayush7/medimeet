@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 👨‍⚕️ MediMeet – Telemedicine Video Consultation Platform
 
-## Getting Started
 
-First, run the development server:
+A full-stack SaaS-based doctor-patient video consultation platform that enables secure emergency video calls, appointment booking, and subscription-based access to healthcare professionals from the comfort of your home.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
+  <img src="/public/cover.gif" alt="MediMeet Banner" width="100%" />
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🏥 **3 Interactive Dashboards** – Admin, Doctor, and Patient
+- 🎥 **Emergency Video Consultations** via **Vonage API**
+- 📅 **Doctor Scheduling & Appointment Booking**
+- 💳 **Subscription System** – Talk to verified doctors using credits
+- 🔐 **Secure Authentication** with **Clerk**
+- 📊 **Admin Panel** – Manage doctors, patients, and platform settings
+- 💡 **Real-time Communication** with <500ms latency
+- ✅ **Verified Doctors** – Approved only after admin verification
+- 🌙 **Dark & Light Theme** support
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Frontend       | Backend          | Database     | Auth      | Video API   | UI          |
+|----------------|------------------|--------------|-----------|-------------|-------------|
+| Next.js 15     | Next.js App Router | Neon  | Clerk     | Vonage      | Tailwind CSS, shadcn/ui |
+| React          | Server Actions   | Prisma    | JWT       |      | Responsive UI |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+----
 
-## Deploy on Vercel
+## 🔐 Roles & Permissions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Admin**: Verify doctors, manage platform, monitor activity
+- **Doctor**: Set schedule, accept appointments, consult patients
+- **Patient**: Book appointments, recharge credits, talk to doctors
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
